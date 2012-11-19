@@ -1,7 +1,8 @@
 mcollective-agents
 ==================
 
-Marionette Collective Agents
+A collection of my Agents for Marionette Collective, licensed
+under the Apache Software License 2.0, see NOTICE.
 
 To install/use, drop this mcollective folder directly into your
 mcollective libdir.
