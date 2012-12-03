@@ -21,64 +21,10 @@ metadata    :name        => "nexusdpl",
   :timeout     => 60
 
 
-action "dl", :description => "Download specified artefact (and check SHA1 sum)" do
-  input :app,
-    :prompt      => "App to download",
-    :description => "Download this application",
-    :type        => :string,
-    :validation  => '^.+$',
-    :optional    => false,
-    :maxlength   => 256
-
-  input :group,
-    :prompt      => "Maven Group",
-    :description => "Download application from this Maven Group",
-    :type        => :string,
-    :validation  => '^.+$',
-    :optional    => false,
-    :maxlength   => 256
-
-  input :repo,
-    :prompt      => "Repository to download from",
-    :description => "Download application from this repository. (Default: config.nexusdpl.repo)",
-    :type        => :string,
-    :validation  => '^.+$',
-    :optional    => true,
-    :maxlength   => 256
-
-  input :version,
-    :prompt      => "Version of app to download",
-    :description => "Download application in this specific version. (Default: LATEST)",
-    :type        => :string,
-    :validation  => '^.+$',
-    :optional    => true,
-    :maxlength   => 256
-
-  input :ext,
-    :prompt      => "Extension of app",
-    :description => "What extension does this app have? (Default: war)",
-    :type        => :string,
-    :validation  => '^.+$',
-    :optional    => true,
-    :maxlength   => 256
-
-  output :tempfile,
-    :description => "Path to downloaded tempfile",
-    :display_as  => "Path"
-end
-
 action "dpl", :description => "Deploy specified artefact to application server" do
   input :app,
-    :prompt      => "App to download",
-    :description => "Download this application",
-    :type        => :string,
-    :validation  => '^.+$',
-    :optional    => false,
-    :maxlength   => 256
-
-  input :group,
-    :prompt      => "Maven Group",
-    :description => "Download application from this Maven Group",
+    :prompt      => "Maven ID of App to download",
+    :description => "Download this application, specified by its Maven ID",
     :type        => :string,
     :validation  => '^.+$',
     :optional    => false,

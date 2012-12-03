@@ -60,24 +60,10 @@ module MCollective
         @repo = config.pluginconf['nexusdpl.repo']
       end
 
-      action "dl" do
-        app = request[:app]
-        group = request[:group]
-        version = request[:version] || "LATEST"
-        repo = request[:repo] || @repo
-        ext = request[:ext] || "war"
-
-        # normalize extension
-        # ext.gsub!(%r./, '\1') wtf Ruby
-
-        url = "#{@base_url}/service/local/artifact/maven/redirect?r=#{repo}&g=#{group}&a=#{app}&e=#{ext}&v=#{version}"
-        url_sha1 = "#{@base_url}/service/local/artifact/maven/redirect?r=#{repo}&g=#{group}&a=#{app}&e=#{ext}.sha1&v=#{version}"
-        reply[:tempfile] = download(url, url_sha1, ext)	
-      end
-
       action "dpl" do
-        app = request[:app]
-        group = request[:group]
+        mvn = request[:app]
+        *group, app = mvn.split "."
+        group = group.join "."
         version = request[:version] || "LATEST"
         repo = request[:repo] || @repo
         ext = request[:ext] || "war"
