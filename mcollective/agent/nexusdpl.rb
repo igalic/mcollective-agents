@@ -34,9 +34,8 @@ module MCollective
     #
     # Paramters:
     #   app        maven name
-    #   group      maven group
     #   version    e.g.: 1.1, default: LATEST per Nexus API
-    #   repos      default: config.nexusdpl.repo
+    #   repo       default: config.nexusdpl.repo
     #   ext        default: war
     #   context    default $app
     #   path       default: /opt/tomcats/$context/webapps/$context.$ext
