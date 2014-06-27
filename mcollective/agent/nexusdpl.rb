@@ -84,7 +84,7 @@ module MCollective
           reply.fail! "failed to unlink old .#{ext} file: #{path}"
         end
         begin
-          File.rename(tempfile, path)
+          FileUtils.mv(tempfile, path)
         rescue Exception => e
           reply[:error] = e.message
           reply[:trace] = e.backtrace.inspect
