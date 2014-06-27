@@ -34,7 +34,7 @@ module MCollective
     #
     # Paramters:
     #   app        maven name
-    #   version    e.g.: 1.1, default: LATEST per Nexus API
+    #   appversion e.g.: 1.1, default: LATEST per Nexus API
     #   repo       default: config.nexusdpl.repo
     #   ext        default: war
     #   context    default $app
@@ -63,7 +63,7 @@ module MCollective
         mvn = request[:app]
         *group, app = mvn.split "."
         group = group.join "."
-        version = request[:version] || "LATEST"
+        version = request[:appversion] || "LATEST"
         repo = request[:repo] || @repo
         ext = request[:ext] || "war"
         context = request[:context] || app

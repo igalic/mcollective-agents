@@ -38,7 +38,7 @@ action "dpl", :description => "Deploy specified artefact to application server" 
     :optional    => true,
     :maxlength   => 256
 
-  input :version,
+  input :appversion,
     :prompt      => "Version of app to download",
     :description => "Download application in this specific version. (Default: LATEST)",
     :type        => :string,
