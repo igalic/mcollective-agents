@@ -188,7 +188,7 @@ module MCollective
 
         unless sha1_file_content == sha1 then
           artefact_file.unlink
-          nil # returning nil fits better with
+	  reply.fail! "SHA1 of the artefact does not match"
         end
         artefact_file.path # returning a string
       end
