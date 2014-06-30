@@ -34,7 +34,7 @@ module MCollective
     #
     # Paramters:
     #   app        maven name
-    #   version    e.g.: 1.1, default: LATEST per Nexus API
+    #   appversion e.g.: 1.1, default: LATEST per Nexus API
     #   repo       default: config.nexusdpl.repo
     #   ext        default: war
     #   context    default $app
@@ -63,7 +63,7 @@ module MCollective
         mvn = request[:app]
         *group, app = mvn.split "."
         group = group.join "."
-        version = request[:version] || "LATEST"
+        version = request[:appversion] || "LATEST"
         repo = request[:repo] || @repo
         ext = request[:ext] || "war"
         context = request[:context] || app
@@ -84,7 +84,7 @@ module MCollective
           reply.fail! "failed to unlink old .#{ext} file: #{path}"
         end
         begin
-          File.rename(tempfile, path)
+          FileUtils.mv(tempfile, path)
         rescue Exception => e
           reply[:error] = e.message
           reply[:trace] = e.backtrace.inspect
@@ -131,9 +131,9 @@ module MCollective
 
 
         if File.exists?('/usr/bin/wget')
-          system('/usr/bin/wget', '-q', '--user', @user, '--password', @passwd, '-O', localpath, "#{url}")
+          reply[:status] = run("/usr/bin/wget -q --user #{@user} --password #{@passwd} -O #{localpath} '#{url}'", :stdout => :out, :stderr => :err)
         elsif File.exists?('/usr/bin/curl')
-          system('/usr/bin/curl', '-s', '-u', "#{@user}:#{@passwd}", '-o', localpath, url)
+          reply[:status] = run("/usr/bin/curl -s -u '#{@user}:#{@passwd}' -o #{localpath} '#{url}'", :stdout => :out, :stderr => :err)
         else
           false
         end
@@ -188,7 +188,7 @@ module MCollective
 
         unless sha1_file_content == sha1 then
           artefact_file.unlink
-          nil # returning nil fits better with
+	  reply.fail! "SHA1 of the artefact does not match"
         end
         artefact_file.path # returning a string
       end

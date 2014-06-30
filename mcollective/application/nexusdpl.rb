@@ -16,9 +16,9 @@ class MCollective::Application::Nexusdpl<MCollective::Application
     :description    => "full path where to put the deployable",
     :arguments      => ["--path PATH"]
 
-  option :version,
+  option :appversion,
     :description    => "Which exact version of this app to install",
-    :arguments      => ["--version VERSION"],
+    :arguments      => ["--appversion VERSION"],
     :default        => "LATEST"
 
   option :ext,
