@@ -131,9 +131,9 @@ module MCollective
 
 
         if File.exists?('/usr/bin/wget')
-          system('/usr/bin/wget', '-q', '--user', @user, '--password', @passwd, '-O', localpath, "#{url}")
+          reply[:status] = run("/usr/bin/wget -q --user #{@user} --password #{@passwd} -O #{localpath} '#{url}'", :stdout => :out, :stderr => :err)
         elsif File.exists?('/usr/bin/curl')
-          system('/usr/bin/curl', '-s', '-u', "#{@user}:#{@passwd}", '-o', localpath, url)
+          reply[:status] = run("/usr/bin/curl -s -u '#{@user}:#{@passwd}' -o #{localpath} '#{url}'", :stdout => :out, :stderr => :err)
         else
           false
         end
